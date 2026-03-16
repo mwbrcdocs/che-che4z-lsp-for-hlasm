@@ -36,6 +36,21 @@ Bulk and on-demand downloading of dependencies via FTP is not available in the W
 </details>
 
 <details>
+<summary><span style="font-size: 1.5em"><b>Integration with Explorer for Endevor and Zowe Explorer</b></span><hr></summary>
+
+Integrate HLASM Language Support with [Explorer for Endevor](https://marketplace.visualstudio.com/items?itemName=broadcomMFD.explorer-for-endevor) to retrieve your HLASM source code from Endevor locations and edit it in VS Code. HLASM Language Support automatically retrieve dependencies associated with Endevor elements written in HLASM. We also recommend that you use HLASM Language Support with [Zowe Explorer](https://marketplace.visualstudio.com/items?itemName=Zowe.vscode-extension-for-zowe) to open your High Level Assembler programs stored on mainframe data sets.
+
+To enable automatic dependency retrieval from Endevor, ensure your site has enabled the Endevor REST API version 2.16 or higher (PTF LU09053).
+
+HLASM Language Support, Explorer for Endevor and Zowe Explorer are all available as part of the [Code4z Foundation](https://marketplace.visualstudio.com/items?itemName=broadcomMFD.code4z-extension-pack) pack.
+
+<div align="center">
+<a href="https://www.openmainframeproject.org/all-projects/zowe/conformance"><img alt="This extension is Zowe v3 conformant" src="https://artwork.openmainframeproject.org/other/zowe-conformant/zowev3/explorer-vs-code/color/zowe-conformant-zowev3-explorer-vs-code-color.png" width=208 height=156 /></a>
+</div>
+
+</details>
+
+<details>
 <summary><span style="font-size: 1.5em"><b>Getting Started</b></span><hr></summary>
 
 **Enabling the Extension**
@@ -49,8 +64,7 @@ You can download and open an <nobr>`example workspace`</nobr> from our [GitHub r
 3. The extension is now enabled on the open file. If you have macro definitions in separate files or use the COPY instruction, you must set up a workspace.
 
 
-<details>
-<summary><span style="font-size: 1.3em">Setting Up a Multi-File Project Environment</span></summary>
+**Setting Up a Multi-File Project Environment**
 
 External files are usually accessed during HLASM evaluation (e.g. when the HLASM COPY instruction is used, or when macros are defined in external libraries). The source code interpreter in the HLASM Language Support extension must be set up correctly to be able to find the same files as the HLASM assembler program. 
 
@@ -61,13 +75,11 @@ To do this, set up two configuration files — `proc_grps.json` and `pgm_conf.js
 2. Navigate to the `proc_grps.json` file. This is the entry point where you can specify paths to macro definitions and COPY files. 
 3. Fill the `libs` array with the corresponding paths. For example, if you have your macro files in the `ASMMAC/` folder, add the string `"ASMMAC"` into the libs array.
 
-Follow the section [External Macro Libraries and COPY Members](#External-Macro-Libraries-and-COPY-Members) below for more detailed instructions on configuring the environment.
+See *Configure External Macro Libraries and COPY Members* for more detailed instructions on configuring the environment.
 
-The `pgm_conf.json` file can be provided implicitly by another product that supports integration with HLASM Language Support (e.g. Endevor Bridge for Git).
+The `pgm_conf.json` file can be provided implicitly by another product that supports integration with HLASM Language Support (for example, Endevor Bridge for Git).
 
 You can also specify your processor group configuration in the Visual Studio Code extension settings in the `hlasm.proc_grps` and `hlasm.pgm_conf` keys. When `proc_grps.json` or `pgm_conf.json` files are present in the workspace, they take precedence over any configuration that is specified in the extension settings.
-
-</details>
 
 <details>
 <summary><span style="font-size: 1.3em">Configure External Macro Libraries and COPY Members</span></summary>
@@ -266,19 +278,6 @@ The following example of `proc_grps.json` specifies that files with the extensio
 </details>
 
 <details>
-<summary><span style="font-size: 1.3em">Configure the Macro Tracer</span></summary>
-
-While not a debugger, the macro tracer functionality allows you to track the process of assembling HLASM code.
-
-1. Open your workspace.
-2. In the left sidebar, click the bug icon to open the debugging panel (`Ctrl + Shift + D`).
-3. Select `create a launch.json file`.  
-   The file `launch.json` opens with a pre-filled configuration.  
-   Your workspace is now configured for macro tracing.   
-
-</details>
-
-<details>
 <summary><span style="font-size: 1.3em">Configure Preprocessors</span></summary>
 
 Processor groups can be configured so that the HLASM source is processed with a preprocessor. Currently, the following preprocessor options are supported:
@@ -411,9 +410,22 @@ The macro tracer functionality allows you to track the process of assembling HLA
 
 The macro tracer is not a debugger. It cannot debug running executables, it only tracks the compilation process.
 
-**To run the macro tracer**, open the file that you want to trace. Then press **`F5`** to open the debugging panel and start the debugging session.
+**Configure the Macro Tracer**
 
-When the tracer stops at a macro or COPY instruction, you can select **step into** to open the macro or COPY file, or **step over** to skip to the next line.
+1. Open your workspace.
+2. In the left sidebar, click the bug icon to open the debugging panel (`Ctrl + Shift + D`).
+3. Select `create a launch.json file`.  
+   The file `launch.json` opens with a pre-filled configuration.  
+   
+Your workspace is now configured for macro tracing.   
+
+**Run the Macro Tracer**
+
+1. Open the file that you want to trace. 
+2. Press **`F5`** to open the debugging panel and start the debugging session.
+3. When the tracer stops at a macro or COPY instruction, you can select the following options:
+   - **Step into** to open the macro or COPY file
+   - **Step over** to skip to the next line
 
 Breakpoints can be set before or during the debugging session.
 
@@ -442,27 +454,11 @@ You can use the HLASM Language Support extension to download dependencies from m
 
 All dependencies are downloaded from the specified data sets to your workspace.
 
-<details>
-<summary><span style="font-size: 1.3em">Automatic Dependency Retrieval from Endevor</span></summary>
+**Automatic Dependency Retrieval from Endevor**
 
 If you open HLASM source files using Explorer for Endevor, HLASM Language Support retrieves dependencies dynamically from the processor group that is defined in the Endevor element. For more information about Explorer for Endevor, see the [Explorer for Endevor documentation](https://marketplace.visualstudio.com/items?itemName=broadcomMFD.explorer-for-endevor).
 
 </details>
-
-</details>
-
-<details>
-<summary><span style="font-size: 1.5em"><b>Integration with Explorer for Endevor and Zowe Explorer</b></span><hr></summary>
-
-Integrate HLASM Language Support with [Explorer for Endevor](https://marketplace.visualstudio.com/items?itemName=broadcomMFD.explorer-for-endevor) to retrieve your HLASM source code from Endevor locations and edit it in VS Code. HLASM Language Support automatically retrieve dependencies associated with Endevor elements written in HLASM. We also recommend that you use HLASM Language Support with [Zowe Explorer](https://marketplace.visualstudio.com/items?itemName=Zowe.vscode-extension-for-zowe) to open your High Level Assembler programs stored on mainframe data sets.
-
-To enable automatic dependency retrieval from Endevor, ensure your site has enabled the Endevor REST API version 2.16 or higher (PTF LU09053).
-
-HLASM Language Support, Explorer for Endevor and Zowe Explorer are all available as part of the [Code4z Foundation](https://marketplace.visualstudio.com/items?itemName=broadcomMFD.code4z-extension-pack) pack.
-
-<div align="center">
-<a href="https://www.openmainframeproject.org/all-projects/zowe/conformance"><img alt="This extension is Zowe v3 conformant" src="https://artwork.openmainframeproject.org/other/zowe-conformant/zowev3/explorer-vs-code/color/zowe-conformant-zowev3-explorer-vs-code-color.png" width=208 height=156 /></a>
-</div>
 
 </details>
 
